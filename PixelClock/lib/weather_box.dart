@@ -83,12 +83,6 @@ class Weather extends StatelessWidget {
                     child: Stack(
                       alignment: AlignmentDirectional.center,
                       children: <Widget>[
-                        // Center(
-                        //   child: AspectRatio(
-                        //     aspectRatio: 0.8,
-                        //     child: weatherIcons[weatherCondition],
-                        //   ),
-                        // ),
                         Container(
                           //text
                           margin: EdgeInsets.symmetric(
@@ -124,23 +118,6 @@ class Weather extends StatelessWidget {
                                           ),
                                         ),
                                       ),
-                                      // Stack(
-                                      //   children: <Widget>[
-
-                                      //     // Stroked text as border.
-                                      //     Text(
-                                      //       temperature,
-                                      //       style: weatherBoxStroke,
-                                      //     ),
-                                      //     // Solid text as fill.
-                                      //     Text(temperature,
-                                      //         style: weatherBoxStroke),
-                                      //   ],
-                                      // ),
-                                      // Text(
-                                      //   temperature,
-                                      //   style: weatherBox,
-                                      // ),
                                     ],
                                   ),
                                 ),
@@ -154,7 +131,6 @@ class Weather extends StatelessWidget {
                                       flex: 5,
                                       child: FittedBox(
                                         fit: BoxFit.fitHeight,
-
                                         child: Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
@@ -164,8 +140,8 @@ class Weather extends StatelessWidget {
                                             BorderedText(
                                               strokeWidth: 0,
                                               strokeColor: isDarkMode
-                                            ? Colors.white
-                                            : Colors.black,
+                                                  ? Colors.white
+                                                  : Colors.black,
                                               child: Text(
                                                 location,
                                                 style: TextStyle(

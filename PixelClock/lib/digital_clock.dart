@@ -3,14 +3,13 @@ import 'dart:async';
 import 'dart:ui';
 import 'package:flutter/painting.dart';
 
-import 'flippy.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'dart:developer';
 import 'weather_box.dart';
+import 'flipBoard.dart';
 
 
 const String Day = "Day";
@@ -23,9 +22,15 @@ const String Sunrise = "Sunrise";
 const String S2D = "Sunrise2Day";
 
 
-bool luminance(Color color) {
-  return color.computeLuminance() < 1 / 3;
+
+void rebuildAllChildren(BuildContext context) {
+  void rebuild(Element el) {
+    el.markNeedsBuild();
+    el.visitChildren(rebuild);
+  }
+  (context as Element).visitChildren(rebuild);
 }
+
 
 final defaultTheme = PixelClockTheme(
 
@@ -58,43 +63,19 @@ final defaultTheme = PixelClockTheme(
   color: Colors.white,
   decoration: TextDecoration.none,                  
   fontFamily: 'Joystix', 
-      //   shadows: [
-      //   Shadow( // bottomLeft
-      //     offset: Offset(-1.5, -1.5),
-      //     color: Colors.black
-      //   ),
-      //   Shadow( // bottomRight
-      //     offset: Offset(1.5, -1.5),
-      //     color: Colors.black
-      //   ),
-      //   Shadow( // topRight
-      //     offset: Offset(1.5, 1.5),
-      //     color: Colors.black
-      //   ),
-      //   Shadow( // topLeft
-      //     offset: Offset(-1.5, 1.5),
-      //     color: Colors.black
-      //   ),
-      // ],
   ),
-  lightColors: Colors.primaries.where(luminance).toList(),
-  darkColors: Colors.primaries.where(luminance).map((color) => color[900]).toList(),
-);
+  );
 
 class PixelClockTheme {
   const PixelClockTheme({
     @required this.globalTextStyle,
     @required this.weatherBoxStroke,
     @required this.weatherBoxTextStyle,
-    @required this.lightColors,
-    @required this.darkColors,
   });
 
   final TextStyle globalTextStyle;
   final TextStyle weatherBoxTextStyle;
   final TextStyle weatherBoxStroke;
-  final List<Color> lightColors;
-  final List<Color> darkColors;
 }
 
 
@@ -194,6 +175,8 @@ class _DigitalClockState extends State<DigitalClock> {
 @override
 Widget build(BuildContext context)
 {
+
+  
     final hour = DateFormat('HH').format(_dateTime);
     final minute = DateFormat('mm').format(_dateTime);
     final second = DateFormat('ss').format(_dateTime);
@@ -206,10 +189,15 @@ Widget build(BuildContext context)
     if(previousMode != isDarkMode)
     {
       log("change");
-      hourChangeInSeconds = 1000;
-      minuteChangeInSeconds = 1000;      
+      hourChangeInSeconds = 999;
+      minuteChangeInSeconds = 999;      
       previousMode = !previousMode;
-      _updateModel();
+      //_updateModel();
+      rebuildAllChildren(context);
+      setState(() {
+        
+      });
+
     }
 
   return Stack(
@@ -235,11 +223,11 @@ Widget build(BuildContext context)
         children:
         <Widget>
         [
-          FlipWidget(child: hour,bgColor: isDarkMode? Colors.black.withAlpha(175):Colors.white.withAlpha(175), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(milliseconds: hourChangeInSeconds),),
+          FlipWidget2(child: hour,bgColor: isDarkMode? Colors.black.withAlpha(175):Colors.white.withAlpha(175), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(milliseconds: hourChangeInSeconds),),
           Text(":",style: TextStyle(color: Colors.white, fontSize: 100, decoration: TextDecoration.none),),
-          FlipWidget(child: minute,bgColor: isDarkMode? Colors.black.withAlpha(175):Colors.white.withAlpha(175), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(milliseconds: minuteChangeInSeconds),),
+          FlipWidget2(child: minute,bgColor: isDarkMode? Colors.black.withAlpha(175):Colors.white.withAlpha(175), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(milliseconds: minuteChangeInSeconds),),
           Text(":",style: TextStyle(color: Colors.white, fontSize: 100, decoration: TextDecoration.none),),
-          FlipWidget(child: second,bgColor: isDarkMode? Colors.black.withAlpha(175):Colors.white.withAlpha(175), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(seconds: 1),),
+          FlipWidget2(child: second,bgColor: isDarkMode? Colors.black.withAlpha(175):Colors.white.withAlpha(175), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(seconds: 1),),
         ]
       ), 
 
@@ -258,6 +246,10 @@ Widget build(BuildContext context)
                 ),
               ),
             ),
+
+
+
+
 
     ],
   );
