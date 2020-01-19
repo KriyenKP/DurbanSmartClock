@@ -9,14 +9,25 @@ This project was my first ever look at Flutter, Rive and Application Development
 I hope someone can enjoy the work I've put in =) 
 
 
-See [flutter.dev/clock](https://flutter.dev/clock) for how to get started, submission requirements, contest rules, and FAQs.
+Backgrounds as the day progresses
 
-See a [live demo](https://maryx.github.io/flutter_clock) with Flutter for Web!
+Sunrise 
 
-DayTime
+<img src='Screenshots/Sunrise.JPG' width='350'>
+<img src='Screenshots/S2D.gif' width='350'>
+
+Day 
 
 <img src='Screenshots/Day.JPG' width='350'>
+<img src='Screenshots/D2S.gif' width='350'>
 
-Example [Digital Clock](digital_clock)
+Sunset
 
-<img src='digital_clock/digital.gif' width='350'>
+<img src='Screenshots/Sunset.JPG' width='350'>
+<img src='Screenshots/S2N.gif' width='350'>
+
+Night
+
+<img src='Screenshots/Night.JPG' width='350'>
+<img src='Screenshots/N2S.gif' width='350'>
+
