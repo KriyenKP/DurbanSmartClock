@@ -35,13 +35,9 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   fonts:
-    - family: Peepo
+    - family: silkscreen
       fonts:
-        - asset: third_party/Peepo.ttf
-    - family: Joystix
-      fonts:
-        - asset: third_party/joystix.ttf
-        
+        - asset: third_party/Silkscreen/slkscr.ttf
 
   # To add assets to your application, add an assets section, like this:
   # assets:

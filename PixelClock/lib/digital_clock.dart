@@ -41,13 +41,13 @@ final defaultTheme = PixelClockTheme(
   fontSize: 70.0,
   color: Colors.white,
   decoration: TextDecoration.none,                  
-  fontFamily: 'Joystix', 
+  fontFamily: 'silkscreen', 
   ),
 
   weatherBoxStroke:
           TextStyle(
             fontSize: 70.0,
-            fontFamily: 'Joystix', 
+            fontFamily: 'silkscreen', 
             fontWeight: FontWeight.bold,
             foreground: Paint()
               ..strokeWidth = 5
@@ -62,7 +62,7 @@ final defaultTheme = PixelClockTheme(
   fontSize: 70.0,
   color: Colors.white,
   decoration: TextDecoration.none,                  
-  fontFamily: 'Joystix', 
+  fontFamily: 'silkscreen', 
   ),
   );
 
@@ -100,6 +100,8 @@ class _DigitalClockState extends State<DigitalClock> {
   var _location = '';
   bool previousMode = false;
 
+
+  int flipTimer = 5; //this is a hack to get the flipboard of the clock to change for dark mode
   DateTime _dateTime = DateTime.now();
 
   @override
@@ -174,30 +176,30 @@ class _DigitalClockState extends State<DigitalClock> {
 
 @override
 Widget build(BuildContext context)
-{
-
-  
+{  
     final hour = DateFormat('HH').format(_dateTime);
     final minute = DateFormat('mm').format(_dateTime);
     final second = DateFormat('ss').format(_dateTime);
 
     final isDarkMode = Theme.of(context).brightness != Brightness.light;
 
-    int hourChangeInSeconds = 3600000;
-    int minuteChangeInSeconds = 60000;
+
+    int hourChangeInSeconds = 1;// 3600;
+    int minuteChangeInSeconds = 1;// 60;
     
     if(previousMode != isDarkMode)
     {
       log("change");
-      hourChangeInSeconds = 999;
-      minuteChangeInSeconds = 999;      
-      previousMode = !previousMode;
-      //_updateModel();
-      rebuildAllChildren(context);
-      setState(() {
-        
-      });
+      //change flip timer to 1 seconds to switch frame to dark mode in place....this doesnt seem to work well... 
+      hourChangeInSeconds = 3600;
+      minuteChangeInSeconds = 60;   
+      flipTimer-- ;   
+    }
 
+    if(flipTimer<=0)
+    {
+      previousMode = !previousMode;
+      flipTimer = 5;
     }
 
   return Stack(
@@ -223,15 +225,13 @@ Widget build(BuildContext context)
         children:
         <Widget>
         [
-          FlipWidget2(child: hour,bgColor: isDarkMode? Colors.black.withAlpha(175):Colors.white.withAlpha(175), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(milliseconds: hourChangeInSeconds),),
+          FlipWidget(child: hour,bgColor: isDarkMode? Colors.black.withAlpha(125):Colors.white.withAlpha(125), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(seconds: hourChangeInSeconds),),
           Text(":",style: TextStyle(color: Colors.white, fontSize: 100, decoration: TextDecoration.none),),
-          FlipWidget2(child: minute,bgColor: isDarkMode? Colors.black.withAlpha(175):Colors.white.withAlpha(175), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(milliseconds: minuteChangeInSeconds),),
+          FlipWidget(child: minute,bgColor: isDarkMode? Colors.black.withAlpha(125):Colors.white.withAlpha(125), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(seconds: minuteChangeInSeconds),),
           Text(":",style: TextStyle(color: Colors.white, fontSize: 100, decoration: TextDecoration.none),),
-          FlipWidget2(child: second,bgColor: isDarkMode? Colors.black.withAlpha(175):Colors.white.withAlpha(175), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(seconds: 1),),
+          FlipWidget(child: second,bgColor: isDarkMode? Colors.black.withAlpha(125):Colors.white.withAlpha(125), txtColor: isDarkMode?Colors.white :Colors.black ,duration: Duration(seconds: 1),),
         ]
       ), 
-
-
 
         Align(
               alignment: Alignment(0, 0.8),
@@ -248,9 +248,6 @@ Widget build(BuildContext context)
             ),
 
 
-
-
-
     ],
   );
 }
@@ -265,27 +262,27 @@ Widget build(BuildContext context)
 
   String dayProgression(DateTime now)
   {
-    //final int hours = now.hour;
+    final int hours = now.hour;
     //final int minutes  = now.minute;
-    final int seconds = now.second;
+    //final int seconds = now.second;
 
-    //if(hours >= 0 && hours <=4)
-    if(seconds >= 0 && seconds <4)
+    if(hours >= 0 && hours <=4) //between Midnight and 4AM 
+    //if(seconds >= 0 && seconds <4) //debug
     {
       return Night;
     }
-    //else if(hours >= 4 && hours <= 9)  //between 4AM and 9AM - Sunrise
-    if(seconds >= 4 && seconds <15)
+    else if(hours >= 4 && hours <= 9)  //between 4AM and 9AM - Sunrise 
+    //if(seconds >= 4 && seconds <15) //debug
     {
       return Sunrise;
     }
-    //else if(hours > 9 && (hours <= 11 && seconds <=30))  //between 9AM and 5PM - Day
-    if(seconds >= 15 && seconds <30)
+    else if(hours > 9 && hours <= 16)  //between 9AM and 4PM - Day
+    //if(seconds >= 15 && seconds <30) //debug
     {
       return Day;
     }
-    //else if(hours > 9 && hours < 19)  //between 4PM and 7PM - Sunset
-    if(seconds >= 30 && seconds < 45)
+    else if(hours > 16 && hours < 19)  //between 4PM and 7PM - Sunset
+    //if(seconds >= 30 && seconds < 45) //debug
     {
       return Sunset;
     }
@@ -298,35 +295,37 @@ Widget build(BuildContext context)
 
   void dayProgressionAnimate(String timeOfDay)
   {
+    int transitionSpeed = 4; // each transition lasts 4 seconds - Rive
+
     switch (timeOfDay) {
       case Day:
       {
         _animateTo(S2D);
-        Timer(Duration(seconds: 4), () {_animateTo(Day);});
+        Timer(Duration(seconds: transitionSpeed), () {_animateTo(Day);});
         break;
       }
       case Sunset:
       {
         _animateTo(D2S);
-        Timer(Duration(seconds: 4), () {_animateTo(Sunset);});
+        Timer(Duration(seconds: transitionSpeed), () {_animateTo(Sunset);});
         break;
       }
       case Sunrise:
       {
         _animateTo(N2S);
-        Timer(Duration(seconds: 4), () {_animateTo(Sunrise);});
+        Timer(Duration(seconds: transitionSpeed), () {_animateTo(Sunrise);});
         break;
       }
       case Night:
       {
         _animateTo(S2N);
-        Timer(Duration(seconds: 4), () {_animateTo(Night);});
+        Timer(Duration(seconds: transitionSpeed), () {_animateTo(Night);});
         break;
       }
       default:
       {     
         _animateTo(S2N);
-        Timer(Duration(seconds: 4), () {_animateTo(Night);});
+        Timer(Duration(seconds: transitionSpeed), () {_animateTo(Night);});
         break;
       }
     }

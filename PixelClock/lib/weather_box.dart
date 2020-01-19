@@ -55,8 +55,8 @@ class Weather extends StatelessWidget {
         Card(
           elevation: 10,
           color: isDarkMode
-              ? Colors.black.withAlpha(175)
-              : Colors.white.withAlpha(175),
+              ? Colors.black.withAlpha(125)
+              : Colors.white.withAlpha(125),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(250)),
           child: LayoutBuilder(
@@ -114,7 +114,7 @@ class Weather extends StatelessWidget {
                                             decorationColor: isDarkMode
                                                 ? Colors.white
                                                 : Colors.white,
-                                            fontFamily: 'Joystix',
+                                            fontFamily: 'silkscreen',
                                           ),
                                         ),
                                       ),
@@ -153,18 +153,12 @@ class Weather extends StatelessWidget {
                                                   decorationColor: isDarkMode
                                                       ? Colors.white
                                                       : Colors.white,
-                                                  fontFamily: 'Joystix',
+                                                  fontFamily: 'silkscreen',
                                                 ),
                                               ),
                                             ),
                                           ],
                                         ),
-
-                                        // child:
-                                        // Text(
-                                        //   location,
-                                        //   style: weatherBox,
-                                        // ),
                                       ),
                                     ),
                                   ],
