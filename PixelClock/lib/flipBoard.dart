@@ -1,6 +1,5 @@
 //
 
-
 import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
@@ -14,8 +13,7 @@ class FlipWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
- 
-    log(duration.toString());
+    //log(duration.toString());
     return new FlipPanel.builder(
       itemBuilder: (context, index) => Container(
         margin: EdgeInsets.symmetric(vertical: 50, horizontal: 0),
@@ -105,7 +103,8 @@ class FlipPanel<T> extends StatefulWidget {
   })  : assert(itemBuilder != null),
         assert(itemsCount != null),
         assert(startIndex < itemsCount),
-        assert(period == null || period.inMilliseconds >= 2 * duration.inMilliseconds),
+        assert(period == null ||
+            period.inMilliseconds >= 2 * duration.inMilliseconds),
         indexedItemBuilder = itemBuilder,
         streamItemBuilder = null,
         itemStream = null,
