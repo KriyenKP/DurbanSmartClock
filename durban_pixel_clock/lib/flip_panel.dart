@@ -20,7 +20,7 @@ class FlipWidget extends StatelessWidget {
               startTime: DateTime.now(),
               separator: Container(
                 width: 10,
-                height: 75,
+                height: 70,
                 alignment: Alignment.center,
                 child: Text(
                   ':',

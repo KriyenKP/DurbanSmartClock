@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'package:bordered_text/bordered_text.dart';
 
-import 'dart:developer';
-
 final weatherIcons = {
   WeatherCondition.cloudy: Image.asset(
     "assets/cloudy.png",

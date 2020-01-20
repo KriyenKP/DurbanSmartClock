@@ -4,7 +4,6 @@ import 'package:flutter/painting.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flare_flutter/flare_actor.dart';
-import 'package:intl/intl.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'dart:developer';
 import 'weather_box.dart';
@@ -159,9 +158,9 @@ class _DigitalClockState extends State<DigitalClock> {
 
   @override
   Widget build(BuildContext context) {
-    final hour = DateFormat('HH').format(_dateTime);
-    final minute = DateFormat('mm').format(_dateTime);
-    final second = DateFormat('ss').format(_dateTime);
+    // final hour = DateFormat('HH').format(_dateTime);
+    // final minute = DateFormat('mm').format(_dateTime);
+    // final second = DateFormat('ss').format(_dateTime);
 
     final isDarkMode = Theme.of(context).brightness != Brightness.light;
 
