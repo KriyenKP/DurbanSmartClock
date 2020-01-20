@@ -47,12 +47,17 @@ I hope someone can enjoy the work I've put in =)
 <img src='Screenshots/N2S.gif' width='350'>
 
 ### Weather icons
-
+####Cloudy
 <img src='/PixelClock/assets/cloudy.png' width='50'>
-<img src='/PixelClock/assets/sunny' width='50'>
-<img src='/PixelClock/assets/rain' width='50'>
+####Sunny
+<img src='/PixelClock/assets/sunny.png' width='50'>
+####Rain
+<img src='/PixelClock/assets/rain.png' width='50'>
+####Thunder Storm
 <img src='/PixelClock/assets/thunderstorm.png' width='50'>
+####Wind
 <img src='/PixelClock/assets/wind.png' width='50'>
+####Snow
 <img src='/PixelClock/assets/snow.png' width='50'>
 
 
