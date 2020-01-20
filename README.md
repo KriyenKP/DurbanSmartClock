@@ -17,22 +17,45 @@ I hope someone can enjoy the work I've put in =)
 ### Sunrise  - between 4AM and 9AM
 
 <img src='Screenshots/Sunrise.JPG' width='350'>
+
+#### Sunrise to Day
+
 <img src='Screenshots/S2D.gif' width='350'>
 
 ### Day - between 9AM and 4PM
 
 <img src='Screenshots/Day.JPG' width='350'>
+
+#### Day to Sunset
+
 <img src='Screenshots/D2S.gif' width='350'>
 
 ### Sunset - between 4PM and 7PM
 
 <img src='Screenshots/Sunset.JPG' width='350'>
+
+#### Sunset to Night
+
 <img src='Screenshots/S2N.gif' width='350'>
 
 ### Night between 7PM and 4AM
 
 <img src='Screenshots/Night.JPG' width='350'>
+
+#### Night to Sunrise
+
 <img src='Screenshots/N2S.gif' width='350'>
+
+### Weather icons
+
+<img src='/PixelClock/assets/cloudy.png' width='50'>
+<img src='/PixelClock/assets/sunny' width='50'>
+<img src='/PixelClock/assets/rain' width='50'>
+<img src='/PixelClock/assets/thunderstorm.png' width='50'>
+<img src='/PixelClock/assets/wind.png' width='50'>
+<img src='/PixelClock/assets/snow.png' width='50'>
+
+
 
 License
 ----
