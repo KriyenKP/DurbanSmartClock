@@ -13,6 +13,14 @@ I hope someone can enjoy the work I've put in =)
 
 ###### Please ignore the times shown during the animation as this was done on a debug build in order to demonstrate the transition
 
+### Light Mode
+
+<img src='Screenshots/Day.JPG' width='350'>
+
+### Dark Mode
+
+<img src='Screenshots/darkMode.JPG' width='350'>
+
 
 ### Sunrise  - between 4AM and 9AM
 
