@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter_clock_helper/model.dart';
 import 'dart:developer';
 import 'weather_box.dart';
-import 'flipBoard.dart';
+import 'flip_panel.dart';
 
 const String Day = "Day";
 const String D2S = "Day2Sunset";
@@ -79,6 +79,9 @@ class _DigitalClockState extends State<DigitalClock> {
   String currentAnimation;
   Timer _timer;
   String previous = "";
+
+  int hourChangeInSeconds = 3600; // 3600;
+  int minuteChangeInSeconds = 60; // 60;
 
   var _temperature = '';
   var _weather;
@@ -162,20 +165,9 @@ class _DigitalClockState extends State<DigitalClock> {
 
     final isDarkMode = Theme.of(context).brightness != Brightness.light;
 
-    int hourChangeInSeconds = 3600; // 3600;
-    int minuteChangeInSeconds = 60; // 60;
-
     if (previousMode != isDarkMode) {
       log("change");
-      //change flip timer to 1 seconds to switch frame to dark mode in place....this doesnt seem to work well...
-      hourChangeInSeconds = 3600;
-      minuteChangeInSeconds = 60;
-      flipTimer--;
-    }
-
-    if (flipTimer <= 0) {
       previousMode = !previousMode;
-      flipTimer = 5;
     }
 
     return Stack(
@@ -194,42 +186,10 @@ class _DigitalClockState extends State<DigitalClock> {
 //time
         Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
           FlipWidget(
-            child: hour,
             bgColor: isDarkMode
                 ? Colors.black.withAlpha(125)
                 : Colors.white.withAlpha(125),
             txtColor: isDarkMode ? Colors.white : Colors.black,
-            duration: Duration(seconds: hourChangeInSeconds),
-          ),
-          Text(
-            ":",
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 100,
-                decoration: TextDecoration.none),
-          ),
-          FlipWidget(
-            child: minute,
-            bgColor: isDarkMode
-                ? Colors.black.withAlpha(125)
-                : Colors.white.withAlpha(125),
-            txtColor: isDarkMode ? Colors.white : Colors.black,
-            duration: Duration(seconds: minuteChangeInSeconds),
-          ),
-          Text(
-            ":",
-            style: TextStyle(
-                color: Colors.white,
-                fontSize: 100,
-                decoration: TextDecoration.none),
-          ),
-          FlipWidget(
-            child: second,
-            bgColor: isDarkMode
-                ? Colors.black.withAlpha(125)
-                : Colors.white.withAlpha(125),
-            txtColor: isDarkMode ? Colors.white : Colors.black,
-            duration: Duration(seconds: 1),
           ),
         ]),
 
